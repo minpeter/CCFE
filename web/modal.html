@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Kanban Board</title>
+
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/common.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="title">Kanban Board</h1>
+    <div class="workflow">
+      <div class="column color1">
+        <h2 class="column-title">To Do</h2>
+        <div class="cards">
+          <div class="card">
+            <input type="text" name="" id="" value="Lorem, ipsum dolor." />
+            <div><button>수정</button><button>삭제</button></div>
+          </div>
+          <div class="card">
+            <input type="text" name="" id="" value="Lorem, ipsum dolor." />
+            <div><button>수정</button><button>삭제</button></div>
+          </div>
+          <div class="card">
+            <input type="text" name="" id="" value="Lorem, ipsum dolor." />
+            <div><button>수정</button><button>삭제</button></div>
+          </div>
+          <button class="button">Add</button>
+        </div>
+      </div>
+      <div class="column color2">
+        <h2 class="column-title">In Porgress</h2>
+        <div class="cards">
+          <div class="card">
+            <input type="text" name="" id="" value="Lorem, ipsum dolor." />
+            <div><button>수정</button><button>삭제</button></div>
+          </div>
+          <div class="card">
+            <input type="text" name="" id="" value="Lorem, ipsum dolor." />
+            <div><button>수정</button><button>삭제</button></div>
+          </div>
+          <div class="card">
+            <input type="text" name="" id="" value="Lorem, ipsum dolor." />
+            <div><button>수정</button><button>삭제</button></div>
+          </div>
+          <button class="button">Add</button>
+        </div>
+      </div>
+      <div class="column color3">
+        <h2 class="column-title">Done</h2>
+        <div class="cards">
+          <div class="card">
+            <input type="text" name="" id="" value="Lorem, ipsum dolor." />
+            <div><button>수정</button><button>삭제</button></div>
+          </div>
+          <div class="card">
+            <input type="text" name="" id="" value="Lorem, ipsum dolor." />
+            <div><button>수정</button><button>삭제</button></div>
+          </div>
+          <div class="card">
+            <input type="text" name="" id="" value="Lorem, ipsum dolor." />
+            <div><button>수정</button><button>삭제</button></div>
+          </div>
+          <button class="button">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tool-bar">
+    <button>로그아웃</button>
+  </div>
+  <div class="modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" title="닫기">X</button>
+      </div>
+      <form name="" id="" action="" method="">
+        <label for="title" class="label">
+          <input type="text" name="title" id="title" placeholder="제목을 입력해주세요" value="Lorem, ipsum dolor." />
+        </label>
+        <label for="startAt" class="label">
+          <span class="label-text">시작일</span>
+          <input type="date" name="startAt" id="startAt" />
+        </label>
+        <label for="endAt" class="label">
+          <span class="label-text">종료일</span>
+          <input type="date" name="endAt" id="endAt" />
+        </label>
+        <label for="status" class="label">
+          <span class="label-text">상태</span>
+          <select name="status" id="status">
+            <option value="TODO">To Do</option>
+            <option value="IN_PROGRESS">In Progress</option>
+            <option value="DONE">Done</option>
+          </select>
+        </label>
+        <label for="" class="label">
+          <textarea name="content" id="content" placeholder="내용을 입력해주세요">
+          </textarea>
+        </label>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

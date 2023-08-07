@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Kanban Board</title>
+
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/common.css">
+
+
+  <script src="./js/common.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="title">Kanban Board</h1>
+    <div class="workflow">
+      <div class="column color1">
+        <h2 class="column-title">To Do</h2>
+        <div class="cards" id="todo">
+          <button class="button" id="addTodoBtn">Add</button>
+        </div>
+      </div>
+      <div class="column color2">
+        <h2 class="column-title">In Porgress</h2>
+        <div class="cards" id="inProgress">
+          <button class="button" id="addInProgressBtn">Add</button>
+        </div>
+      </div>
+      <div class="column color3">
+        <h2 class="column-title">Done</h2>
+        <div class="cards" id="done">
+          <button class="button" id="addDoneBtn">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tool-bar">
+    <button>로그아웃</button>
+  </div>
+</body>
+
+</html>
