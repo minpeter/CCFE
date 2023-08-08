@@ -17,7 +17,7 @@ object RiotRepository {
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
 
-    fun getSummonerRankInfo(summonerId: String): Single<List<SummonerRankInfo>> = riotAPIV5
+    fun getSummonerRankInfo(summonerId: String): Single<List<SummonerRankInfo>> = riotAPI
         .getSummonerRankInfo(summonerId)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())

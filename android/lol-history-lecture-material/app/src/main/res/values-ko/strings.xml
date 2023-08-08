@@ -4,4 +4,11 @@
     <string name="input_summoner_name">소환사 이름을 입력해주세요.</string>
 
     <string name="enter">확인</string>
+
+    <string name="win">승</string>
+    <string name="defeat">패</string>
+
+    <string name="not_exist_summoner">소환사 정보가 존재하지 않습니다.</string>
+    <string name="history_error">메치기록을 찾을 수 없습니다.</string>
+
 </resources>
