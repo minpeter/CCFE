@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.lolhistory.datamodel.MatchHistory
 import com.lolhistory.datamodel.SummonerIdInfo
 import com.lolhistory.datamodel.SummonerRankInfo
 import com.lolhistory.repository.RiotRepository
@@ -29,6 +30,8 @@ class MainActivityViewModel: ViewModel() {
             override fun onSuccess(t: SummonerIdInfo) {
                 _summonerIDInfoLiveData.value = t
                 getSummonerRankInfo(t.id)
+
+                getMatchList(t.puuid)
             }
 
             override fun onError(e: Throwable) {
@@ -37,6 +40,8 @@ class MainActivityViewModel: ViewModel() {
             }
         })
     }
+
+
 
     private fun getSummonerRankInfo(summonerId: String) {
         repo.getSummonerRankInfo(summonerId).subscribe(object: SingleObserver<List<SummonerRankInfo>> {
@@ -52,6 +57,43 @@ class MainActivityViewModel: ViewModel() {
                 Log.d("TESTLOG", "[getSummonerRankInfo] exception: $e")
             }
         })
+    }
+
+    private fun getMatchList(puuid: String) {
+        RiotRepository
+            .getMatchHistoryList(puuid, 0, 20)
+            .subscribe(object: SingleObserver<List<String>> {
+                override fun onSubscribe(d: Disposable) {
+                }
+
+                override fun onSuccess(t: List<String>) {
+                    for (match in t) {
+                        getMatchHistory(match)
+                    }
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.d("TESTLOG", "[getMatchList] exception: $e")
+                }
+            })
+    }
+
+    private fun getMatchHistory(matchId: String) {
+        RiotRepository
+            .getMatchHistory(matchId)
+            .subscribe(object : SingleObserver<MatchHistory>{
+                override fun onSubscribe(d: Disposable) {
+                }
+
+                override fun onSuccess(t: MatchHistory) {
+                    Log.d("TESTLOG", "[getMatchHistory] gamVersion: $t.gameVersion")
+//                    Log.d("TESTLOG", "[getMatchHistory] participants: ${t.participants[0].}")
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.d("TESTLOG", "[getMatchHistory] exception: $e")
+                }
+            })
     }
 
     private fun setSummonerRankInfo(summonerRankInfoList: List<SummonerRankInfo>) {
