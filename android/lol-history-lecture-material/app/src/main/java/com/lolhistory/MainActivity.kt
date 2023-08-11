@@ -1,11 +1,14 @@
 package com.lolhistory
 
+import android.content.Context
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.lolhistory.databinding.ActivityMainBinding
 import com.lolhistory.datamodel.SummonerRankInfo
 import java.util.Locale
@@ -15,6 +18,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainActivityViewModel
 
     private var puuid: String = ""
+
+    private var isVisibleLayoutInfo = false
+
+    private val inputMetodManager by lazy {
+        this@MainActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -33,7 +43,16 @@ class MainActivity : AppCompatActivity() {
             binding.pbLoading.visibility = View.VISIBLE
             viewModel.getSummonerIdInfo(binding.etInputSummoner.text.toString().trim())
             binding.etInputSummoner.setText("")
+            inputMetodManager.hideSoftInputFromWindow(binding.etInputSummoner.windowToken, 0)
         }
+
+        binding.rvHistory.layoutManager = LinearLayoutManager(this)
+        binding.rvHistory.setHasFixedSize(true)
+
+        binding.layoutSwipe.setOnRefreshListener {
+            viewModel.getSummonerIdInfo(binding.tvSummonerName.text.toString().trim())
+        }
+
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
         viewModel.summonerIDInfoLiveData.observe(this) {
@@ -43,10 +62,13 @@ class MainActivity : AppCompatActivity() {
                     R.string.not_exist_summoner,
                     Toast.LENGTH_SHORT
                 ).show()
+                binding.pbLoading.visibility = View.GONE
             } else {
                 puuid = it.puuid
             }
         }
+
+
 
         viewModel.summonerRankInfoLiveData.observe(this) {
             if (it != null) {
@@ -55,6 +77,29 @@ class MainActivity : AppCompatActivity() {
                 binding.pbLoading.visibility= View.GONE
 
             }
+        }
+
+
+        viewModel.matchHistoryListLiveData.observe(this) {
+            if (it.isEmpty()) {
+            } else {
+                val historyAdapter = HistoryAdapter(ArrayList(it), puuid)
+                binding.rvHistory.adapter = historyAdapter
+                binding.layoutSwipe.isRefreshing = false
+                binding.layoutInput.visibility = View.GONE
+            }
+            binding.pbLoading.visibility = View.GONE
+        }
+    }
+
+    override fun onBackPressed() {
+        if (isVisibleLayoutInfo) {
+            binding.layoutInfo.visibility = View.GONE
+            binding.layoutInput.visibility = View.VISIBLE
+            isVisibleLayoutInfo = !isVisibleLayoutInfo
+        }
+        else {
+            finish()
         }
     }
 
@@ -79,9 +124,9 @@ class MainActivity : AppCompatActivity() {
         }
         setTierEmblem(summonerRankInfo.tier)
 
-        binding.pbLoading.visibility = View.GONE
-
         binding.layoutInfo.visibility = View.VISIBLE
+        binding.layoutInput.visibility = View.GONE
+        isVisibleLayoutInfo = true
     }
 
     private fun setTierEmblem(tier: String) {

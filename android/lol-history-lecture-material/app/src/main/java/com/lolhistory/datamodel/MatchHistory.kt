@@ -94,6 +94,12 @@ data class MatchHistory (
                 var styles: List<Styles>,
             ) {
                 data class Styles (
+                    @SerializedName("description")
+                    var description: String,
+
+                    @SerializedName("style")
+                    var style: Int,
+
                     @SerializedName("selections")
                     var selections: List<Selections>,
                 ) {
